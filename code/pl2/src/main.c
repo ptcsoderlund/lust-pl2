@@ -1,10 +1,17 @@
 #include "SDL3/SDL_events.h"
-#include "SDL3/SDL_oldnames.h"
+#include "SDL3/SDL_keycode.h"
 #include "SDL3/SDL_render.h"
 #include <SDL3/SDL.h>
 #include <memory/pl_arena_allocator.h>
 #include <pl_types.h>
 #include <stdio.h>
+#include <vulkan/vulkan.h>
+#include <vulkan/vulkan_core.h>
+
+VkInstance vk_instance = {0};
+
+void init(){
+}
 
 int main(void) {
   i32 my_num = 300;
@@ -28,6 +35,13 @@ int main(void) {
       if (e.type == SDL_EVENT_QUIT) {
         app_run = false;
         break;
+      }
+      //quit on escape or q
+      if(e.type == SDL_EVENT_KEY_DOWN){
+        if(e.key.key == SDLK_ESCAPE || e.key.key == SDLK_Q){
+          app_run = false;
+          break;
+        }
       }
     }
     SDL_SetRenderDrawColor(renderer,0,0,0,255);
